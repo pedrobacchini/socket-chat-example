@@ -16,18 +16,23 @@
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
         $(function () {
-            var socket = io();
-            $('form').submit(function (e) {
-                e.preventDefault(); //prevents page reloaading
-                msg = $('#m').val();
-                socket.emit('chat message', msg);
-                $('#messages').append($('<li>').text(msg));
-                $('#m').val('');
-                return false;
-            });
-            socket.on('chat message', function(msg){
-                $('#messages').append($('<li>').text(msg));
-            });
+            var person = prompt("Por favor entre com seu apelido:", "");
+            if (person == null || person == "") {
+
+            } else {
+                var socket = io();
+                $('form').submit(function (e) {
+                    e.preventDefault(); //prevents page reloaading
+                    msg = person +': ' + $('#m').val();
+                    socket.emit('chat message', msg);
+                    $('#messages').append($('<li>').text(msg));
+                    $('#m').val('');
+                    return false;
+                });
+                socket.on('chat message', function(msg){
+                    $('#messages').append($('<li>').text(msg));
+                });
+            }
         });
     </script>
 </head>
